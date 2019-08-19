@@ -8,9 +8,6 @@ use themroc\humhub\modules\mail_in\Module;
 
 /**
  * ContainerForm defines the configurable fields.
- *
- * @package humhub.modules.linklist.forms
- * @author Sebastian Stumpf
  */
 class ConfigForm extends Model
 {
@@ -26,7 +23,6 @@ class ConfigForm extends Model
     public function init()
     {
         $this->mod = Yii::$app->getModule('mail_in');
-#        $this->method = $this->mod->settings->get('accessMethod');
     }
 
     /**

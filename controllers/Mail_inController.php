@@ -10,7 +10,6 @@ use humhub\modules\space\models\Space;
 use humhub\modules\post\permissions\CreatePost;
 use humhub\modules\content\components\ContentContainerController;
 
-#use themroc\humhub\modules\mail_in\models\Data;
 use themroc\humhub\modules\mail_in\models\ConfigForm;
 
 class Mail_inController extends ContentContainerController
