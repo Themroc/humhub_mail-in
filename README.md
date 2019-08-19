@@ -40,19 +40,17 @@ make sure that envelope-sender-adresses can not be faked, like by requiring SPF.
 For IMAP-configuration, see <https://www.php.net/manual/en/function.imap-open.php>
 section "Optional flags for names" for flags to append to the IMAP-source-string.
 
-__Module website:__ <https://github.com/themroc/humhub-modules-mail_in>
+__Module website:__ <https://github.com/Themroc/humhub_mail-in>
 
 __Author:__ Themroc <7hemroc@gmail.com>
 
-__Author website:__ [none](http://example.net)
-
 ### Changelog
 
-<https://github.com/themroc/humhub-modules-mail_in/commits/master>
+<https://github.com/Themroc/humhub_mail-in/commits/master>
 
 ### Bugtracker
 
-<https://github.com/themroc/humhub-modules-mail_in/issues>
+<https://github.com/Themroc/humhub_mail-in/issues>
 
 ### ToDos
 
