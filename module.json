@@ -1,0 +1,12 @@
+{
+    "id": "mail_in",
+    "name": "Mail_in",
+    "description": "Allow posting via Email.",
+    "keywords": [
+    ],
+    "version": "0.1",
+    "humhub": {
+        "minVersion": "1.2"
+    },
+    "screenshots": ["assets/screenshot1.png"]
+}
