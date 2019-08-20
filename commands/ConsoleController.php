@@ -3,7 +3,6 @@
 namespace themroc\humhub\modules\mail_in\commands;
 
 use DateTime;
-use League\HTMLToMarkdown\HtmlConverter;
 
 use Yii;
 use yii\console\Controller;
@@ -11,6 +10,7 @@ use yii\console\ExitCode;
 use yii\helpers\Console;
 
 use humhub\modules\user\models\User;
+use humhub\modules\user\models\Profile;
 use humhub\modules\space\models\Space;
 use humhub\modules\post\models\Post;
 use humhub\modules\file\models\File;
@@ -19,6 +19,7 @@ use humhub\modules\content\models\Content;
 use humhub\modules\content\permissions\CreatePublicContent;
 use humhub\modules\content\components\ContentContainerPermissionManager;
 
+use League\HTMLToMarkdown\HtmlConverter;
 use themroc\humhub\modules\mail_in\lib\mime_parser_class;
 
 class ConsoleController extends Controller
@@ -26,10 +27,9 @@ class ConsoleController extends Controller
     const MBX_POSTED= 'hh-posted';
     const MBX_IGNORED= 'hh-ignored';
 
-    public  $user;
-
+    private $user;
+    private $alt_email;
     private $dry;
-
     private $mbx_ignored;
     private $mbx_posted;
     private $f_get;
@@ -44,7 +44,6 @@ class ConsoleController extends Controller
 
     private function get_imap ($space) {
         $source= $space->getSetting('source', 'mail_in');
-        printf("\n----------\nSpace: '%s' Source:'%s'\n", $space->getDisplayName(), $source);
         if (! preg_match('!([^:]+):([^@]+)@([^/]+)/?(.*)!', $source, $m))
             return null;
 
@@ -72,7 +71,10 @@ class ConsoleController extends Controller
 
         $r= [];
         $count= imap_num_msg($this->imap);
-        printf("Imap '%s' opened, message count: %d\n", $conn, $count);
+        if ($count) {
+            printf("\n----------\nSpace: '%s' Source:'%s'\n", $space->getDisplayName(), $source);
+            printf("Imap '%s' opened, message count: %d\n", $conn, $count);
+        }
         for ($msgno= 1; $msgno<=$count; $msgno++) {
             $mail_hdr= imap_fetchheader($this->imap, $msgno);
             if (null === $user= $this->check_email($space, $mail_hdr)) {
@@ -233,11 +235,15 @@ class ConsoleController extends Controller
             printf("get_mails_imap(): Failed to get real sender address from '%s'.\n", $mail_hdr);
             return null;
         }
-        $email= $m[1];
+        $email= strtolower($m[1]);
 
         if (null == $user= User::findOne(['email' => $email])) {
-            printf("No user found with email '%s'.\n", $email);
-            return null;
+            if (null != $this->alt_email && null != $prof= Profile::find()->where(['like', $this->alt_email, $email])->one())
+                $user= User::findOne(['id' => $prof->user_id]);
+            if (null == $user) {
+                printf("No user found with email '%s'.\n", $email);
+                return null;
+            }
         }
         if (! $user->isActive()) {
             printf("Ignoring inactive user #%d '%s' email:'%s'\n", $user->getId(), $user->getDisplayName(), $email);
@@ -289,7 +295,9 @@ class ConsoleController extends Controller
         //TODO: maildir
         $mode= 'imap';
 
-        printf("Checking emails (mode:'%s')...\n", $mode);
+        $this->alt_email = Yii::$app->getModule('mail_in')->settings->get('altEmail');
+
+#        printf("Checking emails (mode:'%s')...\n", $mode);
         if ($mode == 'imap') {
             $this->f_get= 'get_imap';
             $this->f_move= 'move_imap';
@@ -420,7 +428,7 @@ class ConsoleController extends Controller
             $this->{$this->f_close}();
         }
 
-        printf("\n");
+#        printf("\n");
     }
 
     public function actionRun()

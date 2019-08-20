@@ -18,6 +18,14 @@ class Module extends ContentContainerModule
     /**
     * @inheritdoc
     */
+    public function getConfigUrl()
+    {
+        return Url::to(['/mail_in/admin']);
+    }
+
+    /**
+    * @inheritdoc
+    */
     public function getContentContainerTypes()
     {
         return [

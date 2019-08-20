@@ -3,6 +3,7 @@ return [
 	'Mail in' => 'Mail in ',
 	'Allow posting via Email' => 'Beiträge per Email posten',
 	'Subject: ' => 'Betr.: ',
+	'Profile attribute to supply alternative email addresses' => 'Profil-Attribut zur Erfassung alternativer Emailadressen',
 	'<strong>Space</strong>-Email address' => '<strong>Space</strong>-Email-Adresse',
 	'module configuration' => 'modulkonfiguration',
 	'Access method' => 'Zugriffsmethode',
