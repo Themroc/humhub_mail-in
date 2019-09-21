@@ -3,65 +3,66 @@
 namespace themroc\humhub\modules\mail_in\models;
 
 use Yii;
-use \yii\base\Model;
+use yii\base\Model;
 use themroc\humhub\modules\mail_in\Module;
 
 /**
- * ContainerForm defines the configurable fields.
+ * ConfigForm defines the configurable fields.
  */
-class ConfigForm extends Model
+class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 {
-    public $method = Module::ACCESS_METHOD_IMAP;
+#	public $method = Module::ACCESS_METHOD_IMAP;
     public $source = '';
-    public $maildir = '';
+#	public $maildir = '';
     public $address = '';
     public $showaddr = 0;
     public $sortorder = -10;
 
-    private $mod;
-
-    public function init()
-    {
-        $this->mod = Yii::$app->getModule('mail_in');
-    }
-
-    /**
-     * Declares the validation rules.
+	protected $vars= [
+/*
+		'method'=> [
+			'label'=> 'Access method',
+			'rules'=> 'number',
+			'form'=> [
+				'type'=> 'radio',
+				'params'=> Module::ACCESS_METHODS,
+			],
+		],
      */
-    public function rules()
-    {
-        return [
-            [ ['source', 'maildir', 'address'],  'string'],
-            [ ['showaddr', 'sortorder'],  'number'],
+		'source'=> [
+			'label'=> 'IMAP account',
+			'hints'=> 'E.g. user:password@example.com',
+/*
+			'form'=> [
+				'depends'=> ['method'=> Module::ACCESS_METHOD_IMAP],
+			],
+     */
+		],
+/*
+		'maildir'=> [
+			'label'=> 'Maildir location',
+			'hints'=> 'E.g. /home/spaces/welcome/Maildir',
+			'form'=> [
+				'depends'=> ['method'=> Module::ACCESS_METHOD_MAILDIR],
+			],
+		],
+     */
+		'address'=> [
+			'label'=> 'Email address',
+		],
+		'showaddr'=> [
+			'label'=> 'Enable sidebar widget',
+			'rules'=> 'number',
+			'form'=> [
+				'type'=> 'checkbox',
+			],
+		],
+		'sortorder'=> [
+			'label'=> 'Widget sort order',
+			'rules'=> 'number',
+			'form'=> [
+				'depends'=> ['showaddr'=> 1 ],
+			],
+		],
         ];
     }
-
-    /**
-     * Declares customized attribute labels.
-     * If not declared here, an attribute would have a label that is
-     * the same as its name with the first letter in upper case.
-     */
-    public function attributeLabels()
-    {
-        return [
-            'method' => Yii::t('MailInModule.base', 'Access method'),
-            'source' => Yii::t('MailInModule.base', 'IMAP account'),
-            'maildir' => Yii::t('MailInModule.base', 'Maildir location'),
-            'address' => Yii::t('MailInModule.base', 'Email address'),
-            'showaddr' => Yii::t('MailInModule.base', 'Enable sidebar widget'),
-            'sortorder' => Yii::t('MailInModule.base', 'Widget sort order'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeHints()
-    {
-        return [
-            'source' => Yii::t('MailInModule.base', 'E.g. user:password@example.com'),
-            'maildir' => Yii::t('MailInModule.base', 'E.g. /home/spaces/welcome/Maildir'),
-        ];
-    }
-
-}

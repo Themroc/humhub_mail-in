@@ -1,5 +1,12 @@
 ### Description
-Full featured module to let users post to spaces via email. Needed configuration:
+Full featured module to let users post to spaces via email.
+
+### Installation
+
+Add folder */protected/modules/mail_in, unzip this into it and activate the
+module Administration / Modules.
+
+Needed configuration:
 
 in **protected/config/console.php** add
 
@@ -12,7 +19,7 @@ in **protected/config/console.php** add
     ];
 
 
-In your **/etc/crontab** add something like
+In **/etc/crontab** add something like
 
     */5 *   * * *  /www/humhub/protected/yii mail_in/run
 
@@ -58,3 +65,9 @@ __Author:__ Themroc <7hemroc@gmail.com>
 - more testing
 - allow posting to user profiles
 - continue to not implement crappy protocols like POP3 or mbox
+
+### License
+
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+https://www.humhub.org/de/licences

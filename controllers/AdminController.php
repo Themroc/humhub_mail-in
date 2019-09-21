@@ -8,6 +8,7 @@ use themroc\humhub\modules\mail_in\models\AdminForm;
 
 class AdminController extends Controller
 {
+	public $adminOnly= true;
 
     /**
      * Render admin only page
@@ -16,13 +17,15 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
-        $model = new AdminForm();
-        $model->loadSettings();
+		if (Yii::$app->getModule('mod-helper')===null)
+			return $this->render('error', []);
 
+		$model= new AdminForm();
         if ($model->load(Yii::$app->request->post()) && $model->save())
             $this->view->saved();
 
-        return $this->render('index', ['model' => $model]);
+		return $this->render('@mod-helper/views/form', [
+			'model'=> $model
+		]);
     }
-
 }

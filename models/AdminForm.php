@@ -9,56 +9,19 @@ use themroc\humhub\modules\mail_in\Module;
 /**
  * AdminForm defines the configurable fields.
  */
-class AdminForm extends \yii\base\Model
+class AdminForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 {
-    public $altEmail = '';
+	public $altEmail= Module::ACCESS_METHOD_MAILDIR;
 
-    private $mod;
-
-    public function init()
-    {
-        $this->mod = Yii::$app->getModule('mail_in');
-        $this->loadSettings();
-    }
-
-    /**
-     * Declares the validation rules.
-     */
-    public function rules()
-    {
-        return [
-            ['altEmail', 'string'],
+	protected $vars= [
+		'altEmail'=> [
+			'label'=> 'Profile attribute to supply alternative email addresses',
+			'form'=> [
+				'type'=> 'dropdown',
+				'params'=> [self::class, 'getAltEmails'],
+			],
+		],
         ];
-    }
-
-    /**
-     * Declares customized attribute labels.
-     * If not declared here, an attribute would have a label that is
-     * the same as its name with the first letter in upper case.
-     */
-    public function attributeLabels()
-    {
-        return [
-            'altEmail' => Yii::t('MailInModule.base', 'Profile attribute to supply alternative email addresses'),
-        ];
-    }
-
-    public function loadSettings()
-    {
-        foreach (array_keys($this->attributes) as $name)
-            $this->{$name} = $this->mod->settings->get($name);
-
-        return true;
-    }
-
-
-    public function save()
-    {
-        foreach (array_keys($this->attributes) as $name)
-            $this->mod->settings->set($name, trim($this->{$name}));
-
-        return $this->loadSettings();
-    }
 
     public function getAltEmails()
     {
@@ -69,5 +32,4 @@ class AdminForm extends \yii\base\Model
 
         return $fields;
     }
-
 }

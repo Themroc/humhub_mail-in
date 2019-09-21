@@ -14,6 +14,10 @@ class Module extends ContentContainerModule
 {
     const ACCESS_METHOD_IMAP = 1;
     const ACCESS_METHOD_MAILDIR = 2;
+    const ACCESS_METHODS= [
+        self::ACCESS_METHOD_IMAP => 'IMAP',
+        self::ACCESS_METHOD_MAILDIR => 'Maildir',
+    ];
 
     /**
     * @inheritdoc
@@ -78,9 +82,9 @@ class Module extends ContentContainerModule
 
     public function getMethods()
     {
-        return [
-            self::ACCESS_METHOD_IMAP => 'IMAP',
-            self::ACCESS_METHOD_MAILDIR => 'Maildir',
-        ];
+        return self::ACCESS_METHODS;
+#            self::ACCESS_METHOD_IMAP => 'IMAP',
+#            self::ACCESS_METHOD_MAILDIR => 'Maildir',
+#        ];
     }
 }

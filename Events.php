@@ -28,9 +28,9 @@ class Events
             return;
 
         $event->sender->addItem([
+            'group' => 'manage',
             'label' => 'Mail in',
             'url' => Url::to(['/mail_in/admin']),
-            'group' => 'manage',
             'icon' => '<i class="fa fa-envelope-o"></i>',
             'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'mail_in' && Yii::$app->controller->id == 'admin'),
             'sortOrder' => 90000,

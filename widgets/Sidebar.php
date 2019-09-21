@@ -4,7 +4,6 @@ namespace themroc\humhub\modules\mail_in\widgets;
 
 use Yii;
 use yii\helpers\Url;
-
 use humhub\libs\Html;
 use humhub\components\Widget;
 
@@ -26,5 +25,4 @@ class Sidebar extends Widget
             'address' => $this->address,
         ]);
     }
-
 }

@@ -48,19 +48,22 @@ class Mail_inController extends ContentContainerController
      */
     public function actionConfig()
     {
-        $form= new ConfigForm();
-        foreach ($this->settings as $s)
-            $form->{$s}= $this->getSetting($s);
+		if (Yii::$app->getModule('mod-helper')===null)
+			return $this->render('@mail_in/views/admin/error', []);
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+		$model= new ConfigForm();
+        foreach ($this->settings as $s)
+			$model->{$s}= $this->getSetting($s);
+
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             foreach ($this->settings as $s)
-                $this->setSetting($s, $form->{$s});
+				$this->setSetting($s, $model->{$s});
 
             return $this->redirect($this->contentContainer->createUrl('/mail_in/mail_in/config'));
         }
 
-        return $this->render('config', [ 'model' => $form, 'have_maildir' => 0 ]);
-#        return $this->render('config', [ 'model' => $form ]);
+		return $this->render('@mod-helper/views/admin/index', [
+			'model'=> $model,
+		]);
     }
-
 }
