@@ -1,7 +1,6 @@
 <?php
 
-use yii\helpers\Url;
-use humhub\libs\Html;
+use Yii;
 
 echo '<div id="mail_in-widget" class="panel">'."\n";
 

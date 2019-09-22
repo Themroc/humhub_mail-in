@@ -11,12 +11,12 @@ use themroc\humhub\modules\mail_in\Module;
  */
 class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 {
-#	public $method = Module::ACCESS_METHOD_IMAP;
-    public $source = '';
-#	public $maildir = '';
-    public $address = '';
-    public $showaddr = 0;
-    public $sortorder = -10;
+#	public $method= Module::ACCESS_METHOD_IMAP;
+	public $source= '';
+#	public $maildir= '';
+	public $address= '';
+	public $showaddr= 0;
+	public $sortorder= -10;
 
 	protected $vars= [
 /*
@@ -28,7 +28,7 @@ class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 				'params'=> Module::ACCESS_METHODS,
 			],
 		],
-     */
+*/
 		'source'=> [
 			'label'=> 'IMAP account',
 			'hints'=> 'E.g. user:password@example.com',
@@ -36,7 +36,7 @@ class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 			'form'=> [
 				'depends'=> ['method'=> Module::ACCESS_METHOD_IMAP],
 			],
-     */
+*/
 		],
 /*
 		'maildir'=> [
@@ -46,7 +46,7 @@ class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 				'depends'=> ['method'=> Module::ACCESS_METHOD_MAILDIR],
 			],
 		],
-     */
+*/
 		'address'=> [
 			'label'=> 'Email address',
 		],
@@ -64,5 +64,5 @@ class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 				'depends'=> ['showaddr'=> 1 ],
 			],
 		],
-        ];
-    }
+	];
+}

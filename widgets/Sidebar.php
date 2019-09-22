@@ -2,9 +2,6 @@
 
 namespace themroc\humhub\modules\mail_in\widgets;
 
-use Yii;
-use yii\helpers\Url;
-use humhub\libs\Html;
 use humhub\components\Widget;
 
 /**
@@ -12,17 +9,17 @@ use humhub\components\Widget;
  */
 class Sidebar extends Widget
 {
-    public $address;
-    public $title;
+	public $address;
+	public $title;
 
-    /**
-     * @inheritdoc
-     */
-    public function run()
-    {
-        return $this->render('Sidebar', [
-            'title' => $this->title,
-            'address' => $this->address,
-        ]);
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function run()
+	{
+		return $this->render('Sidebar', [
+			'title' => $this->title,
+			'address' => $this->address,
+		]);
+	}
 }

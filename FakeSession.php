@@ -4,21 +4,21 @@ namespace themroc\humhub\modules\mail_in;
 
 class FakeSession
 {
-    private $user;
+	private $user;
 
-    public function fakeSetUser($user) {
-        $this->user= $user;
-    }
+	public function fakeSetUser($user) {
+		$this->user= $user;
+	}
 
-    public function remove() {
-    }
+	public function remove() {
+	}
 
-    public function getIsActive() {
-        return @$this->user->isActive();
-    }
+	public function getIsActive() {
+		return @$this->user->isActive();
+	}
 
-    public function getId() {
-        return @$this->user->getId();
-    }
+	public function getId() {
+		return @$this->user->getId();
+	}
 
 }

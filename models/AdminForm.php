@@ -21,15 +21,15 @@ class AdminForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 				'params'=> [self::class, 'getAltEmails'],
 			],
 		],
-        ];
+	];
 
-    public function getAltEmails()
-    {
-        $fields= [];
-        foreach (ProfileFieldCategory::find()->orderBy('sort_order')->all() as $category)
-            foreach ($category->fields as $field)
-                $fields[$field->internal_name]= $category->title.' / '.$field->title;
+	public function getAltEmails()
+	{
+		$fields= [];
+		foreach (ProfileFieldCategory::find()->orderBy('sort_order')->all() as $category)
+			foreach ($category->fields as $field)
+				$fields[$field->internal_name]= $category->title.' / '.$field->title;
 
-        return $fields;
-    }
+		return $fields;
+	}
 }
