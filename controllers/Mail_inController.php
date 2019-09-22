@@ -4,25 +4,16 @@ namespace themroc\humhub\modules\mail_in\controllers;
 
 use Yii;
 use yii\web\HttpException;
-
 use humhub\modules\user\models\User;
 use humhub\modules\space\models\Space;
 use humhub\modules\post\permissions\CreatePost;
 use humhub\modules\content\components\ContentContainerController;
-
 use themroc\humhub\modules\mail_in\models\ConfigForm;
 
 class Mail_inController extends ContentContainerController
 {
 	const TYPE_USER= 1;
 	const TYPE_SPACE= 2;
-
-	public $settings= [
-		'source',
-		'address',
-		'showaddr',
-		'sortorder',
-	];
 
 	private function getContainerType()
 	{
@@ -49,15 +40,17 @@ class Mail_inController extends ContentContainerController
 	public function actionConfig()
 	{
 		if (Yii::$app->getModule('mod-helper')===null)
-			return $this->render('@mail_in/views/admin/error', []);
+			return $this->render('@mail_in/views/admin/error', [
+				'msg'=> 'Please install and activate the <a href="https://github.com/Themroc/humhub_mod-helper" target="_blank">Mod-Helper plugin</a>.',
+			]);
 
 		$model= new ConfigForm();
-		foreach ($this->settings as $s)
-			$model->{$s}= $this->getSetting($s);
+		foreach (array_keys($model->getVars()) as $name)
+			$model->{$name}= $this->getSetting($name);
 
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-			foreach ($this->settings as $s)
-				$this->setSetting($s, $model->{$s});
+			foreach (array_keys($model->getVars()) as $name)
+				$this->setSetting($name, $model->{$name});
 
 			return $this->redirect($this->contentContainer->createUrl('/mail_in/mail_in/config'));
 		}
