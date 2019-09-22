@@ -11,7 +11,7 @@ use themroc\humhub\modules\mail_in\Module;
  */
 class AdminForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 {
-	public $altEmail= Module::ACCESS_METHOD_MAILDIR;
+	public $altEmail;
 
 	protected $vars= [
 		'altEmail'=> [
@@ -28,7 +28,7 @@ class AdminForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 		$fields= [];
 		foreach (ProfileFieldCategory::find()->orderBy('sort_order')->all() as $category)
 			foreach ($category->fields as $field)
-				$fields[$field->internal_name]= $category->title.' / '.$field->title;
+				$fields[ $field->internal_name ]= $category->title.' / '.$field->title;
 
 		return $fields;
 	}
