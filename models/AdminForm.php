@@ -18,7 +18,7 @@ class AdminForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 			'label'=> 'Profile attribute to supply alternative email addresses',
 			'form'=> [
 				'type'=> 'dropdown',
-				'params'=> [self::class, 'getAltEmails'],
+				'items'=> [self::class, 'getAltEmails'],
 			],
 		],
 	];

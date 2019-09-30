@@ -25,7 +25,7 @@ class ConfigForm extends \themroc\humhub\modules\modhelper\models\AdminForm
 			'rules'=> 'number',
 			'form'=> [
 				'type'=> 'radio',
-				'params'=> Module::ACCESS_METHODS,
+				'items'=> Module::ACCESS_METHODS,
 			],
 		],
 */
